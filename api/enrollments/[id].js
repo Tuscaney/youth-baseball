@@ -1,6 +1,18 @@
 import { getDdb } from '../_ddb.js'
 import { UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb'
 
+// Accepts body as object, string, or stream
+async function readJson(req) {
+  if (req.body && typeof req.body === 'object') return req.body
+  if (typeof req.body === 'string') {
+    try { return JSON.parse(req.body) } catch { /* fall through */ }
+  }
+  let buf = Buffer.from([])
+  for await (const chunk of req) buf = Buffer.concat([buf, chunk])
+  const text = buf.toString('utf8') || '{}'
+  try { return JSON.parse(text) } catch { return {} }
+}
+
 export default async function handler(req, res) {
   try {
     const { id } = req.query
@@ -10,7 +22,7 @@ export default async function handler(req, res) {
     if (err) return res.status(500).json({ error: err })
 
     if (req.method === 'PUT') {
-      const patch = JSON.parse(req.body || '{}')
+      const patch = await readJson(req)
       const keys = Object.keys(patch)
       if (!keys.length) return res.status(400).json({ error: 'Empty update' })
 
@@ -45,3 +57,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: String(e?.message || e) })
   }
 }
+

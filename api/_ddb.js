@@ -14,6 +14,6 @@ export function getDdb() {
   const ddb = DynamoDBDocumentClient.from(client, {
     marshallOptions: { removeUndefinedValues: true }
   })
-
   return { ddb, TABLE: DDB_TABLE, err: null }
 }
+
