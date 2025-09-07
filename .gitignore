@@ -33,3 +33,8 @@ dist-ssr
 # Vercel project folder
 .vercel
 
+
+# Environment variables
+.env
+.env.*.local
+.env.local
