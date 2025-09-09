@@ -1,11 +1,26 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import App from './App'
+import { render, screen, waitFor } from '@testing-library/react';
+import App from './App';
 
-// Basic smoke test + presence of core sections
-it('renders headings', () => {
-  render(<App />)
-  expect(screen.getByText(/Youth Baseball Enrollment/i)).toBeInTheDocument()
-  expect(screen.getByText(/New Enrollment/i)).toBeInTheDocument()
-  expect(screen.getByText(/Enrollments/i)).toBeInTheDocument()
-})
+it('renders headings', async () => {
+  render(<App />);
+
+  // Be specific: use the heading role (h1/h2) so we don't match body text.
+  expect(
+    await screen.findByRole('heading', { name: /Youth Baseball Enrollment/i, level: 1 })
+  ).toBeInTheDocument();
+
+  expect(
+    await screen.findByRole('heading', { name: /New Enrollment/i, level: 2 })
+  ).toBeInTheDocument();
+
+  expect(
+    await screen.findByRole('heading', { name: /Enrollments/i, level: 2 })
+  ).toBeInTheDocument();
+
+  // If a Loading… placeholder appears first, wait for it to clear.
+  await waitFor(() => {
+    expect(screen.queryByText(/Loading…/i)).not.toBeInTheDocument();
+  });
+});
+
+
