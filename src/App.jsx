@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react';
 import { listEnrollments, createEnrollment, updateEnrollment, deleteEnrollment } from './services/enrollments';
 
+function Hero() {
+  return (
+    <section className="hero">
+      <div className="hero__inner">
+        <div>
+          <h1 className="hero__title">Youth Baseball Enrollment</h1>
+          <p className="hero__tag">Sign up players, track payments, and manage divisions.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,13 +25,17 @@ export default function App() {
   return (
     <div className="app">
       <div className="container">
+        {/* Hero banner */}
+        <Hero />
+
+        {/* Small dashboard header under the hero */}
         <header className="header">
-          <h1 className="title">Youth Baseball Enrollment</h1>
+          <h2 className="title" style={{ margin: 0 }}>Dashboard</h2>
           <span className="badge">Local Dev</span>
         </header>
 
         <div className="grid">
-          <section className="card">
+          <section className="card" id="enroll-form">
             <h2>New Enrollment</h2>
             <EnrollmentForm onSubmit={async (payload) => {
               const created = await createEnrollment(payload);
@@ -129,4 +146,3 @@ function nextDivision(d) {
   const i = order.indexOf(d);
   return order[(i + 1) % order.length];
 }
-

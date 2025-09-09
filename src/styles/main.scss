@@ -7,16 +7,19 @@ body{margin:0;background:$bg;color:$ink;font:16px/1.4 system-ui,-apple-system,"S
 
 .app{min-height:100%} .container{max-width:1080px;margin:0 auto;padding:20px}
 
+/* Header (small dashboard header under hero) */
 .header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
-.header .title{margin:0;font-weight:800;letter-spacing:-.02em;font-size:clamp(22px,3.2vw,32px);color:$brand}
+.header .title{margin:0;font-weight:800;letter-spacing:-.02em;font-size:clamp(18px,2.6vw,22px);color:$brand}
 .header .badge{font-size:12px;color:$muted;background:#eef2ff;padding:6px 10px;border-radius:999px;border:1px solid $border}
 
+/* Grid + Cards */
 .grid{display:grid;gap:16px;grid-template-columns:1fr}
 @media (min-width:900px){.grid{grid-template-columns:1fr 1fr}}
 
 .card{background:#fff;border:1px solid $border;border-radius:$radius;padding:16px;box-shadow:$shadow}
 .card h2{margin:0 0 10px;font-size:18px}
 
+/* Form */
 .row{display:grid;gap:12px;grid-template-columns:1fr;margin:8px 0}
 @media (min-width:560px){.row{grid-template-columns:1fr 1fr}}
 
@@ -24,16 +27,37 @@ body{margin:0;background:$bg;color:$ink;font:16px/1.4 system-ui,-apple-system,"S
 .input:focus,.select:focus,.textarea:focus{border-color:$brand;box-shadow:$ring}
 .textarea{resize:vertical}
 
+/* Buttons */
 .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;transition:transform .06s ease,box-shadow .2s ease,background .2s ease,color .2s ease,border-color .2s ease}
 .btn:active{transform:translateY(1px)} .btn:disabled{opacity:.6;cursor:not-allowed}
 .btn--primary{background:$brand;color:#fff}
 .btn--outline{background:#fff;color:$brand;border:2px solid $brand}
 
+/* List */
 .list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
 .item{border:1px solid $border;border-radius:14px;padding:12px}
 .meta{color:$muted;margin-top:4px;font-size:14px}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;font-size:12px;border:1px solid $border}
 .pill--paid{color:$success;border-color:#bbf7d0;background:#ecfdf5}
 .pill--unpaid{color:$danger;border-color:#fecaca;background:#fff1f2}
+
+/* ===== Hero Banner ===== */
+$hero-height: clamp(180px, 28vw, 320px);
+
+$hero-image: url('https://images.unsplash.com/photo-1615512857040-9c3a6fa9cd0b?q=80&w=2000&auto=format&fit=crop');
+
+
+.hero{
+  position:relative; border-radius:20px; overflow:hidden; height:$hero-height;
+  background-image:
+    linear-gradient(to top, rgba(2,6,23,0.55), rgba(2,6,23,0.15)),
+    $hero-image;
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+  margin:8px 0 18px; box-shadow:0 10px 30px rgba(15,23,42,.08); border:1px solid $border;
+}
+.hero__inner{display:flex;height:100%;padding:18px 20px;align-items:flex-end}
+.hero__title{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(24px,4.2vw,42px);color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.hero__tag{margin:6px 0 2px;color:#e2e8f0;font-size:clamp(13px,1.7vw,16px)}
+
 
